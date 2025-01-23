@@ -34,4 +34,10 @@ public class GameService {
             throw new RuntimeException("Registro não cadastrado no banco!");
         }
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId){
+        var result = gameRepository.searchByList(listId);
+        return result.stream().map(g -> new GameMinDTO(g)).toList();
+    }
 }
